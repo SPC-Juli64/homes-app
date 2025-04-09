@@ -4,8 +4,14 @@ import { ActivatedRoute } from '@angular/router';
 import { HousingService } from '../housing.service';
 import { HousingLocation } from '../housing-location';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { first } from 'rxjs';
 
+/*  This component is responsible for displaying the details of a specific housing location.
+    It fetches the housing location details from the HousingService using the ID from the route parameters.
+    It also provides a form for users to apply to live at the location.
+    The form includes fields for first name, last name, and email.
+    When the form is submitted, it calls the submitApplication method to handle the application.
+    The component uses Angular's Reactive Forms module to manage the form state and validation.
+    The component is defined as a standalone component, meaning it can be used independently without being part of a module.   */
 @Component({
   selector: 'app-details',
   standalone: true,
@@ -55,7 +61,9 @@ email: new FormControl(''),
 
 constructor() {
   const housingLocationId = Number(this.route.snapshot.params['id']);
-  this.housingLocation = this.housingService.getHousingLocationById(housingLocationId);
+  this.housingService.getHousingLocationById(housingLocationId).then((housingLocation) => {
+    this.housingLocation = housingLocation;
+  });
 }
 submitApplication() {
 

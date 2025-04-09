@@ -4,6 +4,9 @@ import { HousingLocationComponent } from '../housing-location/housing-location.c
 import { HousingLocation } from '../housing-location';
 import { HousingService } from '../housing.service';
 
+// This component is responsible for displaying the home page of the application
+// It fetches a list of housing locations from the HousingService and displays them
+// It also provides a search functionality to filter the housing locations by city
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -11,8 +14,8 @@ import { HousingService } from '../housing.service';
   template: `
     <section>
       <form>
-        <input type="text" placeholder="Filter by city" />
-        <button class=primary type="button">Search</button>
+        <input type="text" placeholder="Filter by city" #filter/>
+        <button class=primary type="button" (click)="filterResults(filter.value)">Search</button>
       </form>
     </section>
     <section class="results">
@@ -26,7 +29,9 @@ export class HomeComponent {
   housingService = inject(HousingService);
 
   constructor() {
-    this.housingLocationList = this.housingService.getAllHousingLocations();
+    this.housingService.getAllHousingLocations().then((housingLocationList: HousingLocation[]) => {
+      this.housingLocationList = housingLocationList;
+    });
   }
 }
 
