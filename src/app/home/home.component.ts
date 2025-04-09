@@ -19,14 +19,21 @@ import { HousingService } from '../housing.service';
       </form>
     </section>
     <section class="results">
-      <app-housing-location *ngFor="let housingLocation of housingLocationList"[housingLocation]="housingLocation"></app-housing-location>
+      <app-housing-location *ngFor="let housingLocation of filteredHousingLocationList"[housingLocation]="housingLocation"></app-housing-location>
     </section>
   `,  
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  housingLocationList: HousingLocation[] = []
+  housingLocationList: HousingLocation[] = [];
+  filteredHousingLocationList: HousingLocation[] = [];
   housingService = inject(HousingService);
+
+  filterResults(city: string): void {
+    this.filteredHousingLocationList = this.housingLocationList.filter(housingLocation =>
+      housingLocation.city.toLowerCase().includes(city.toLowerCase())
+    );
+  }
 
   constructor() {
     this.housingService.getAllHousingLocations().then((housingLocationList: HousingLocation[]) => {

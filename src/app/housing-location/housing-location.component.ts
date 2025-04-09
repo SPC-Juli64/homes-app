@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 import { HousingLocation } from '../housing-location';
 import { RouterModule } from '@angular/router';
 
-
+// This component is responsible for displaying individual housing locations
+// It takes a HousingLocation object as input and displays its details
+// It also provides a link to view more details about the housing location
 @Component({
   selector: 'app-housing-location',
   standalone: true,
