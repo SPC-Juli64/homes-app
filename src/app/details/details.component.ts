@@ -18,7 +18,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
   imports: [CommonModule, ReactiveFormsModule],
   template: `
    <article>
-      <img class="listing-photo" [src]="housingLocation?.photo">
+      <img class="listing-photo" [src]="housingLocation?.photo" >
       <section class="listing-description">
         <h2 class="listing-heading">{{housingLocation?.name}}</h2>
         <p class="listing-location">{{housingLocation?.city}},{{housingLocation?.state}}</p>
@@ -61,13 +61,16 @@ email: new FormControl(''),
 
 constructor() {
   const housingLocationId = Number(this.route.snapshot.params['id']);
-  this.housingService.getHousingLocationById(housingLocationId).then((housingLocation) => {
+  this.housingService.getHousingLocationById(housingLocationId).then(housingLocation => {
     this.housingLocation = housingLocation;
   });
 }
 submitApplication() {
 
-    this.housingService.submitApplication(this.applyForm.value.firstName ?? '', this.applyForm.value.lastName ?? '', this.applyForm.value.email ?? '');
+    this.housingService.submitApplication(
+      this.applyForm.value.firstName ?? '', 
+      this.applyForm.value.lastName ?? '', 
+      this.applyForm.value.email ?? '');
     
   }
 }
